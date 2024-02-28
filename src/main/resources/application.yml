@@ -1,0 +1,44 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: product-service
+  cloud:
+    discovery:
+      enabled: true
+eureka:
+  instance:
+    hostname: localhost
+# Actuator
+info:
+  app:
+    name: "This is product-service"
+    version: "1.0.0"
+    description: "This is Product Service!"
+
+management:
+  endpoint:
+    health:
+      group:
+        custom:
+          include: diskSpace,ping
+          show-components: always
+          show-details: always
+          status:
+            http-mapping:
+              up: 207
+    metrics:
+      include: http.server.requests
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,metrics,info
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  info:
+    env:
+      enabled: true
